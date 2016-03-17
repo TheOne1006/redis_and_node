@@ -231,9 +231,21 @@ Z :
 11. HVALS KEY: 表中的所有值
 
 
+## Redis 列表  
 
+1. PUSH 系列
+  -
 
+2. POP 系列
+  - BLPOP/BRPOP key timout : 移除 左/右 边第一个元素, 如无元素 等待 timeout(s)
 
+3. 混合
+  - BRPOPLPUSH listOut listIn timeout: listOut 右弹出,  listIn 左插入
+4. 索引
+  - LINDEX key index
+
+5. LLEN key : 列表长度
+6.
 
 
 
