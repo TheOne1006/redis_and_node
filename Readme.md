@@ -52,6 +52,95 @@ __注意__:
   - 如果key 不存在, 初始化为 0
   - 如过 值不为整数, 会提示错误
 
+### 哈希类型操作
+
+- HSET key field value : 设置key 的 field 字段值为 value
+  - success: return 1
+  - 如果 field 已存在 返回 0
+- HGET key field : 获取 key的 field 字段值
+- HGETALL key : 获取key 所有字段和其值
+
+demo:  
+```bash
+redis 127.0.0.1:6379> HSET author name theone
+(integer) 1
+redis 127.0.0.1:6379> HSET author sex man
+(integer) 1
+redis 127.0.0.1:6379> HSET author sex man
+(integer) 0
+redis 127.0.0.1:6379> HGET author name
+"theone"
+redis 127.0.0.1:6379> HGETALL author
+1) "name"
+2) "theone"
+3) "sex"
+4) "man"
+```
+
+### 链表类型操作
+
+- LPUSH key value [ value .... ]
+  - left push, 左链中添加
+  - 返回链表长度
+  - 一次只能传一个值 __?__
+- RPUSH key value [ ...]
+  - 参考上文
+- LPOP key: 左侧第一个元素
+  - left pop
+- RPOP key:
+  - 参考上文
+- LRANGE key start stop:
+  - 获取链表片段
+  - 不会改变原链表的值
+  - 支持负值索引
+
+Q:
+一次 push 1个 元素 ?
+
+
+### 无序集合类型
+
+- SADD key member [member ... ]
+  - SET ADD
+  - 添加一个或多个元素
+  - 唯一不重复
+  - 类似 ES6 中的 Set
+  - 返回元素数量
+  - 为什么一次只能添加一个
+- SREM key member [member ...]
+  - SET REMOVE
+  - 删除一个或多个元素
+  - 返回元素数量
+- SMEMBERS key: 返回集合所有元素
+  - SET MEMBERS
+- SINTER key1 key2 ...: 交集
+  - SET intersection
+- SDIFF key1 key2 ...: 差集
+  - SET DIFF
+- SUNION key1 key2 ...: 并集
+  - SET UNION
+
+
+### 有序集合类型
+
+Z :
+
+- ZADD key score member [...]
+  - ZSET ADD
+  - socre: 下标/分数
+  - member 元素值
+  - 添加
+- ZREM key member
+  - ZSET remove
+- ZRANGE key start stop [WITHSCORES]: 按分数从小到大排序
+  - ZSET RANGE key start stop
+  - WITHSCORES 如果分数相同, 按照元素字典顺序排列
+- ZREVRANGE key start stop [WITHSCORES] : 按分数从大到小排序
+  - ZSET REV RANGE key start stop
+
+
+
+
 
 
 
