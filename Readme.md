@@ -176,4 +176,68 @@ Z :
 
 
 
+## Redis 字符串
+
+1. SET key value
+2. GET key value
+3. GETRANGE key start end
+  - get range key
+  - 字符串的字符区间
+  - v >= 2.4.0
+3. GETSET key newValue
+  - 返回旧值,并设置新值
+  - key不存在返回 nil
+  - key 不是 string 类型,返回一个错误
+4. MGET key [ key2 key3 ...]
+  - 返回多个key值,
+  - 如果某个 key 不存在/非string 返回nil
+5. SETEX key timeout(s) value
+  - 设置值和过期时间 (秒)
+6. SETNX key value: 如果key 不存在则设置 为 value
+7. SETRANGE key offset value : 复写局部字符串
+  - set range key offset value
+8. STRLEN key: 值的字符串长度
+  - 中文: 3个长度
+9. MSET key1 val1 key2 val2 ...
+  - 同时设置 多个, 会覆盖原始值,key-value
+10. MEETNX key1 val1 key2 val2 ...
+  - 同时设置多个,不会覆盖
+11. 增加 Increment , __Number__ 独有
+  - INCR key : 自增 1
+  - INCRBY key amount (incr by amount) : 自增以 amount
+  - INCRBYFLOAT key incre : 增量为浮点
+12. 减少 Decrement , __Number__ 独有
+  - DECR key : 自减 1
+  - DECRBY key amount:
+13. APPEND key value: 将 value 追加到key值的末尾
+
+
+## Redis 哈希
+
+1. HDEL key: 删除 一个/多个 哈希表字段
+2. HEXISTS key: hash表是否存在
+3. HGET key field:
+4. HGETALL key:
+5. 增量 指定字段操作:
+  - HINCRBY key field increment: 指定 field 增加 increment
+  - HINCRBYFLOAT key field increment
+6. HKEYS key: key 的所有字段
+7. HLEN key: 字段数量
+8. HMGET key field1 [field2]: 指定字段的值
+9. HMSET key filed1 val1 f2 v2: hash版 的 `mset`
+10. 设置  
+  - HSET key filed value
+  - HSETNX key filed val1
+11. HVALS KEY: 表中的所有值
+
+
+
+
+
+
+
+
+
+
+
 - - -
