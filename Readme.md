@@ -54,7 +54,7 @@ __注意__:
 
 ### 哈希类型操作
 
-- HSET key field value : 设置key 的 field 字段值为 value
+- HSET key field value [field value ..... ]: 设置key 的 field 字段值为 value
   - success: return 1
   - 如果 field 已存在 返回 0
 - HGET key field : 获取 key的 field 字段值
@@ -142,7 +142,37 @@ Z :
 
 
 
+## Redis 键命令 `COMMAND KEY_NAME`
 
+[参考地址](http://www.runoob.com/redis)
+
+1. DEL key: 删除key
+  - success: 1
+2. DUMP key:
+  - 序列化key: 返回序列化的值
+  - v >= 2.6.0
+3. EXISTS key: 是否存在
+  - 存在返回 1
+  - 否则返回 0
+4. EXPIRE key time_in_seconds
+  - 设置过期时间,单位 秒, 几秒之后过期
+  - 类似命令:
+  - PEXPIRE key milliseconds: 毫秒记过期时间
+  - PEXPIREAT key milliseconds-timestamp : 设置 key 过期时间的时间戳(unix timestamp) 以毫秒计
+5. KEYS pattern: 查询符合 pattern 模式的 key, 返回 key 的列表
+  - demo_redis_commond/keys
+6. MOVE key database : 将key 移动到指定数据库 db 当中
+  - redis 默认使用数据库0
+  - 目标数据如果存在的移动失败
+7. PERSIST key: 移除key的过期时间,key将永久保存
+8. PTTL key: 返回 key 剩余过期时间(毫秒)
+9. TTL key: (time to live) key 剩余生存时间 (s)
+  - -1 永久
+10. RANDOMKEY: (random key) 当前库随机返回 一个key,
+11. RENAME key newkey: 修改key 名
+  - 如果 newkey 存在,会覆盖
+12. RENAMENX key newkey: 仅档 newkey 不存在,可以才允许 改名
+13. TYPE key : 返回 key 存储类型
 
 
 
