@@ -234,18 +234,97 @@ Z :
 ## Redis 列表  
 
 1. PUSH 系列
-  -
+  - LPUSH key value : 创建/插入 key的左侧列表
+  - LPUSHX key value: (key列表必须存在)
 
 2. POP 系列
   - BLPOP/BRPOP key timout : 移除 左/右 边第一个元素, 如无元素 等待 timeout(s)
+  - RPOP key
 
 3. 混合
   - BRPOPLPUSH listOut listIn timeout: listOut 右弹出,  listIn 左插入
 4. 索引
-  - LINDEX key index
-
+  - LINDEX key index : 通过索引 获取
+  - LSET key index value : 通过索引 设置元素值
 5. LLEN key : 列表长度
-6.
+6. 查找
+  - LRANGE key start stop: 获取列表指定范围
+7. 删除
+  - LREM key count value: 参考count 值,移除列表与参数 value 相等的元素
+  - count > 0 : 从表头开始向表尾搜索，移除与 VALUE 相等的元素，数量为 COUNT 。
+  - count < 0 : 从表尾开始向表头搜索，移除与 VALUE 相等的元素，数量为 COUNT 的绝对值。
+  - count = 0 : 移除表中所有与 VALUE 相等的值。
+
+8. LTRIM key start stop: 保留 start - stop 范围内的元素
+
+
+
+## Redis 集合
+
+- 增
+  1. SADD key member
+    - 在Redis2.4版本以前， SADD 只接受单个成员值。
+- 删
+  1. SPOP key: 随机删除一个元素
+- 改
+  1. SMOVE source dest member: 将member 元素从 source 移动到 dest
+- 查
+  1. SCARD key : 返回集合元素数量
+  2. SISMEMBER key member: member 是否存在与 key
+  3. SMEMBERS key : 返回集合所有成员
+  4. SRANDOMMEMBER key [count]: 随机返回一个随机元素
+- 集合对比
+  1. SDIFF key1 key2 ... : 差集成员列表
+  2. SINTER key1 key2 ... : 交集
+  3. SUNION key1 key2 ... : 并集
+  4. SDIFFSTORE destination key1 key2 : key1 key2 差集 结果存在 destination 中
+  5. SINTERSTORE destination key1 key2 :  
+  6. SUNIONSTORE dest key1 key2 :
+
+
+## Redis 事务
+事务可以一次执行多个命令， 并且带有以下两个重要的保证：  
+- 事务是一个单独的隔离操作：事务中的所有命令都会序列化、按顺序地执行。
+- 事务在执行的过程中，不会被其他客户端发送来的命令请求所打断。
+- 事务是一个原子操作：事务中的命令要么全部被执行，要么全部都不执行。
+
+一个事务从开始到执行会经历以下三个阶段：  
+1. 开始事务。
+2. 命令入队。
+3. 执行事务。
+
+
+## Redis 连接命令
+
+1. AUTH  password : 验证密码是否正确
+2. ECHO mes : 打印字符串
+3. PING : 正常 返回 PONG
+4. QUIT : 关闭当前连接
+5. SELECT index : 连接指定数据库, 默认 0
+
+
+## Redis 服务器
+
+1. BGREWRITEAOF : ??
+2. BGSAVE : 后台异步保存当前数据库到磁盘
+3. CLIENT KILL ip:port 关闭客户端连接
+  - v >= 2.4.0
+4. CLIENT LIST :所有连接到服务器的客户端信息和统计数据。
+  - v >= 2.4
+5. DBSIZE: 当前库中key数量
+6. DEBUG SEGFAULT : 命令执行一个非法的内存访问从而让 Redis 崩溃，仅在开发时用于 BUG 调试。
+7. FLUSHALL: 删除所有库中所有的key
+8. FLUSHDB: 删除当前库中所有的 key
+9. INFO : 服务器各种信息和统计数值
+10. LASTSAVE: 最后一次成功保存的时间戳
+11. MONITOR: 实时打印出 服务器接收到的命令
+12.
+
+
+
+
+
+
 
 
 
